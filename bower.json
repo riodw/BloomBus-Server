@@ -1,0 +1,18 @@
+{
+  "name": "bloombus_frontend",
+  "description": "Source code for Bloomsburg University Bus Tracking App",
+  "main": "index.js",
+  "authors": [
+    "Daniel Pany and Rio Weber"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "bloomsburg",
+    "university",
+    "bus",
+    "tracking",
+    "app",
+    "application"
+  ],
+  "homepage": "https://github.com/DanielPany/BloomBus-Server"
+}

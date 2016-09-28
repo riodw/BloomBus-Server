@@ -1,5 +1,2 @@
 # BloomBus-Server
-asdfsadf
-asdfsdf
-blah
-sadf
+Code for BloomBus-Server
