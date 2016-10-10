@@ -1,27 +1,22 @@
-/**
- * GOOGLE MAPS
- * initMap() - happens on callback of load "https://maps.googleapis.com/maps/api/js&callback=initMap"
- */
- 
-function initMap() {
 
-   /* position Amsterdam */
-   var latlng = new google.maps.LatLng(52.3731, 4.8922);
-
-   var mapOptions = {
-      center: latlng,
-      scrollWheel: false,
-      zoom: 13
-   };
-
-   var marker = new google.maps.Marker({
-      position: latlng,
-      url: '/',
-      animation: google.maps.Animation.DROP
-   });
-
-   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-   marker.setMap(map);
-
+function initialize() {
+  var map = new google.maps.Map(
+    document.getElementById("map_canvas"), {
+      center: new google.maps.LatLng(37.4419, -122.1419),
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+  var poly = new google.maps.Polyline({
+    map: map,
+    path: []
+  })
+  google.maps.event.addListener(map, 'click', function(evt) {
+    // get existing path
+    var path = poly.getPath();
+    // add new point (use the position from the click event)
+    path.push(new google.maps.LatLng(evt.latLng.lat(), evt.latLng.lng()));
+    // update the polyline with the updated path
+    poly.setPath(path);
+  })
 }
-/* ./END - google maps*/
+google.maps.event.addDomListener(window, "load", initialize);

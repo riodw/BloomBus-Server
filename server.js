@@ -76,6 +76,9 @@ app.use(
  *************************************************************/
 require('./server/routes.js')(app);
 
+var SerialPort = require("serialport");
+var xbee_api = require('xbee-api');
+require('./server/xbee-api.js')(SerialPort, xbee_api);
 
 //- Final Redirect Catch All
 //-------------------------------------------------
