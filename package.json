@@ -8,12 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanielPany/BloomBus-Server.git"
+    "url": "git+https://github.com/riodw/BloomBus-Server.get"
   },
   "keywords": [
     "bloomsburg",
     "university",
     "bus",
+    "gps",
+    "schedule",
     "tracking",
     "app",
     "application"
@@ -21,9 +23,9 @@
   "author": "Daniel Pany and Rio Weber",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DanielPany/BloomBus-Server/issues"
+    "url": "https://github.com/riodw/BloomBus-Server/issues"
   },
-  "homepage": "https://github.com/DanielPany/BloomBus-Server#readme",
+  "homepage": "http://148.137.138.107:8080/",
   "dependencies": {
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
