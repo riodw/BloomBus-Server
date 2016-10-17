@@ -14,20 +14,25 @@ module.exports = function(SerialPort, xbee_api, pro) {
    
    
    if(pro == true) {
+      console.log("here");
       SerialPort.list(function (err, ports) {
          ports.forEach(function(port) {
             console.log(port.comName);
             console.log(port.pnpId);
             console.log(port.manufacturer);
+            if(port.manufacturer == 'Silicon_Labs') {
+               xbeeNew(port.comName);
+            }
          });
       });
-      
-      
+   }
+   
+   function xbeeNew(comName) {  
       //https://www.npmjs.com/package/serialport
-      var serialport = new SerialPort("/dev/ttyUSB0", {
+      var serialport = new SerialPort(comName, {
          baudRate: 9600,
          parser: xbeeAPI.rawParser(),
-         autoOpen: false
+         autoOpen: true
       });
       
       var count = 0;
