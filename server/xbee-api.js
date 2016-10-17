@@ -14,16 +14,28 @@ module.exports = function(SerialPort, xbee_api, pro) {
    
    
    if(pro == true) {
+      SerialPort.list(function (err, ports) {
+         ports.forEach(function(port) {
+            console.log(port.comName);
+            console.log(port.pnpId);
+            console.log(port.manufacturer);
+         });
+      });
+      
+      
       //https://www.npmjs.com/package/serialport
       var serialport = new SerialPort("/dev/ttyUSB0", {
          baudRate: 9600,
-         parser: xbeeAPI.rawParser()
-      }, false);
+         parser: xbeeAPI.rawParser(),
+         autoOpen: false
+      });
       
       var count = 0;
       
       serialport.on("open", function(err) {
-         if (err) { console.log(err); return err; }
+         if (err) {
+            return console.log(err.message);
+         }
          
          var frame_obj = { // AT Request to be sent to
             type: C.FRAME_TYPE.AT_COMMAND,
