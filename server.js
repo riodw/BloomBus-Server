@@ -2,19 +2,26 @@ var express = require('express');
 var http = require('http');
 // Native NodeJS module for resolving paths
 var path = require('path');
+// var views_path = 
 
 var port = process.env.PORT;
-
 var server_IP = process.env.IP;
 
+
+
 // IMPORTANT! - For Running on Production Server
+var pro = false;
 // Needs Command Line Argument of "real" <node server.js real>
 process.argv.forEach(function (val, index, array) {
    if(val == 'real') {
       port = 8080;
       server_IP = "148.137.138.107";
+      pro = true;
    }
 });
+
+//https://www.npmjs.com/package/debug
+// var debug = require('debug');
 
 
 // Async
@@ -50,9 +57,10 @@ var app = express();
  * Main
  *************************************************************/
 // Set up
-app.set('view engine', 'ejs');
-app.use(express.static(path.resolve(__dirname, 'client')));
-app.set('views', path.resolve(__dirname, 'client', 'views'));
+
+app.use(express.static(path.resolve(__dirname + '/client')));
+
+console.log(app.set);
 
 // Adding
 // app.use(cookieParser());
@@ -74,11 +82,11 @@ app.use(
 /*************************************************************
  * Routes
  *************************************************************/
-require('./server/routes.js')(app);
+require('./server/routes.js')(app, path);
 
 var SerialPort = require("serialport");
 var xbee_api = require('xbee-api');
-require('./server/xbee-api.js')(SerialPort, xbee_api);
+require('./server/xbee-api.js')(SerialPort, xbee_api, pro);
 
 //- Final Redirect Catch All
 //-------------------------------------------------
