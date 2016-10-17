@@ -3,7 +3,7 @@ module.exports = function(SerialPort, xbee_api, pro) {
    
    //https://www.npmjs.com/package/xbee-api
    var C = xbee_api.constants;
-
+   
    var xbeeAPI = new xbee_api.XBeeAPI({
       // default options:
       api_mode: 1,      // [1, 2]; 1 is default, 2 is with escaping (set ATAP=2)
@@ -18,11 +18,13 @@ module.exports = function(SerialPort, xbee_api, pro) {
       var serialport = new SerialPort("/dev/ttyUSB0", {
          baudRate: 9600,
          parser: xbeeAPI.rawParser()
-      });
+      }, false);
       
       var count = 0;
       
-      serialport.on("open", function() {
+      serialport.on("open", function(err) {
+         if (err) { console.log(err); return err; }
+         
          var frame_obj = { // AT Request to be sent to
             type: C.FRAME_TYPE.AT_COMMAND,
             command: "NI",
@@ -41,7 +43,7 @@ module.exports = function(SerialPort, xbee_api, pro) {
    }
    
    console.log('\n---------- HERE ------------\n');
-
+   
    /*port.on('data', function (data) {
       var buff = new Buffer(data, 'utf8');
       console.log('Data: ' + buff.toString('hex'));
