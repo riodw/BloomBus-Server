@@ -14,12 +14,8 @@ module.exports = function(SerialPort, xbee_api, pro) {
    
    
    if(pro == true) {
-      console.log("here");
       SerialPort.list(function (err, ports) {
          ports.forEach(function(port) {
-            console.log(port.comName);
-            console.log(port.pnpId);
-            console.log(port.manufacturer);
             if(port.manufacturer == 'Silicon_Labs') {
                xbeeNew(port.comName);
             }
@@ -67,3 +63,31 @@ module.exports = function(SerialPort, xbee_api, pro) {
    });*/
    
 };
+
+
+
+
+// 127
+// How are you?
+// 128
+// How are you?
+// 129
+// Bus Tracker #1
+// Time: 10:10:10.800
+// Date: 10/10/2010
+// Fix: 0 quality: 0
+
+// 130
+// How are you?
+// events.js:141
+//       throw er; // Unhandled 'error' event
+//       ^
+
+// Error: Checksum Mismatch {"buffer":{"type":"Buffer","data":[126,0,24,144,0,19,162,0,65,71,142,107,88,25,1,72,111,119,32,97,114,101,32,121,111,117,63,133,1,0,0,0,0,0,0,0,0,0,0,0,48,104,15,1,0,0,0,0,255,255,255,255,99,0,0,0,1,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,0,0,4,3,255,255,255,255,96,213,253,3,0,0,0,0,255,255,255,255,0,0,0,0,240,107,15,1,0,0,0,0,187,9,0,0,95,0,0,0,1,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0]},"offset":28,"length":24,"total":1914,"checksum":0,"b":0,"escape_next":false,"waiting":true}
+//     at XBeeAPI.parseRaw (/home/bloombus/production/node_modules/xbee-api/lib/xbee-api.js:195:19)
+//     at XBeeAPI.<anonymous> (/home/bloombus/production/node_modules/xbee-api/lib/xbee-api.js:133:10)
+//     at SerialPort._emitData (/home/bloombus/production/node_modules/serialport/lib/serialport.js:313:18)
+//     at SerialPort.<anonymous> (/home/bloombus/production/node_modules/serialport/lib/serialport.js:293:14)
+//     at SerialPort.<anonymous> (/home/bloombus/production/node_modules/serialport/lib/serialport.js:306:7)
+//     at FSReqWrap.wrapper [as oncomplete] (fs.js:576:17)
+// bloombus@bloom-bus:~/production$ Error: Checksum Mismatch^C
