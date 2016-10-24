@@ -78,23 +78,27 @@ app.use(
    })
 );
 
+/*************************************************************
+ * BLOOMBUS APP - MODULE CODE
+ *************************************************************/
+var firebase = require("firebase");
+var SerialPort = require("serialport");
+var xbee_api = require('xbee-api');
+require('./server/xbee-api.js')(SerialPort, xbee_api, pro);
+
 
 /*************************************************************
  * Routes
  *************************************************************/
 require('./server/routes.js')(app, path);
 
-var SerialPort = require("serialport");
-var xbee_api = require('xbee-api');
-require('./server/xbee-api.js')(SerialPort, xbee_api, pro);
-
 //- Final Redirect Catch All
-//-------------------------------------------------
-
+//-----------------------------------
 app.get('/*', function(req, res) {
    res.redirect('/');
    // console.log('/* ' + req.body);
 });
+
 
 
 /************************************************************
