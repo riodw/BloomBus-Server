@@ -15,14 +15,18 @@ module.exports = function(SerialPort, xbee_api, pro) {
    
    if(pro == true) {
       SerialPort.list(function (err, ports) {
+         if(err) throw err;
+         
          ports.forEach(function(port) {
             if(port.manufacturer == 'Silicon_Labs') {
+               // found device, call xbeeNew() to make new connection
                xbeeNew(port.comName);
             }
          });
       });
    }
    
+   // After identifying a "port.manufacturer == 'Silicon_Labs'" Connect to that port
    function xbeeNew(comName) {  
       //https://www.npmjs.com/package/serialport
       var serialport = new SerialPort(comName, {
@@ -33,7 +37,7 @@ module.exports = function(SerialPort, xbee_api, pro) {
       
       var count = 0;
       
-      serialport.on("open", function(err) {
+      /*serialport.on("open", function(err) {
          if (err) {
             return console.log(err.message);
          }
@@ -46,6 +50,7 @@ module.exports = function(SerialPort, xbee_api, pro) {
          
          serialport.write(xbeeAPI.buildFrame(frame_obj));
       });
+      */
       
       // All frames parsed by the XBee will be emitted here
       xbeeAPI.on("frame_object", function(frame) {
