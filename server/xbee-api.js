@@ -66,11 +66,9 @@ module.exports = function(SerialPort, xbee_api, firebase, pro) {
          timeKey = date[1];
          timeKey = timeKey.split('.');
          timeKey = timeKey[0];
+         
          return [dateKey, timeKey];
       }
-
-      timeKey = timeKey.split('.');
-      console.log(dateKey + " " + timeKey[0]);
       
       
       var xbee_data = '';
