@@ -89,7 +89,7 @@ module.exports = function(SerialPort, xbee_api, firebase, pro) {
          console.log(xbee_data);
          
          // Push Data to Firebase
-         bus_dataRef.child(date_now[0]).set(xbee_data_obj);
+         bus_dataRef.child(date_now[0]).push(xbee_data_obj);
          
          // Clear xbee_data_obj
          xbee_data_obj = {};
