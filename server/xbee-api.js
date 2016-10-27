@@ -55,27 +55,41 @@ module.exports = function(SerialPort, xbee_api, firebase, pro) {
       // });
       
       // Day key logic
-      var date = new Date().toISOString();
-      date = date.split('T');
-      var dateKey = date[0];
-      var timeKey = date[1];
+      var dateKey;
+      var timeKey;
+      function getNewTime() {
+         var date = new Date().toISOString();
+         date = date.split('T');
+         dateKey = date[0];
+         timeKey = date[1];
+         timeKey = timeKey.split('.');
+         timeKey = timeKey[0];
+         return [dateKey, timeKey];
+      }
+
       timeKey = timeKey.split('.');
       console.log(dateKey + " " + timeKey[0]);
       
+      
+      var xbee_data = '';
       var xbee_data_obj = {};
+      var date_now = [];
       // All frames parsed by the XBee will be emitted here
       xbeeAPI.on("frame_object", function(frame) {
          console.log(count++);
          
          // Turn xbee_data into readable output, not HEX
-         var xbee_data = String(frame.data);
+         xbee_data = String(frame.data);
+         
+         // Get updated time
+         date_now = getNewTime();
          
          // Set up Data in JSON format
-         xbee_data_obj[timeKey] = xbee_data;
+         xbee_data_obj[date_now[1]] = xbee_data;
          console.log(xbee_data);
          
          // Push Data to Firebase
-         bus_dataRef.child(dateKey).set(xbee_data_obj);
+         bus_dataRef.child(date_now[0]).set(xbee_data_obj);
          
          // Clear xbee_data_obj
          xbee_data_obj = {};
