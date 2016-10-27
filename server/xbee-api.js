@@ -1,22 +1,22 @@
-module.exports = function(SerialPort, xbee_api, pro) {
+module.exports = function(SerialPort, xbee_api, firebase, pro) {
    var util = require('util');
-   
+
    //https://www.npmjs.com/package/xbee-api
    var C = xbee_api.constants;
-   
+
    var xbeeAPI = new xbee_api.XBeeAPI({
       // default options:
-      api_mode: 1,      // [1, 2]; 1 is default, 2 is with escaping (set ATAP=2)
-      module: "Any",    // ["802.15.4", "ZNet", "ZigBee", "Any"]; This does nothing, yet!
+      api_mode: 1, // [1, 2]; 1 is default, 2 is with escaping (set ATAP=2)
+      module: "Any", // ["802.15.4", "ZNet", "ZigBee", "Any"]; This does nothing, yet!
       raw_frames: false // [true, false]; If set to true, only raw byte frames are
-                        // emitted (after validation) but not parsed to objects.
+         // emitted (after validation) but not parsed to objects.
    });
-   
-   
+
+
    if(pro == true) {
-      SerialPort.list(function (err, ports) {
+      SerialPort.list(function(err, ports) {
          if(err) throw err;
-         
+
          ports.forEach(function(port) {
             if(port.manufacturer == 'Silicon_Labs') {
                // found device, call xbeeNew() to make new connection
@@ -25,9 +25,9 @@ module.exports = function(SerialPort, xbee_api, pro) {
          });
       });
    }
-   
+
    // After identifying a "port.manufacturer == 'Silicon_Labs'" Connect to that port
-   function xbeeNew(comName) {  
+   function xbeeNew(comName) {
       //https://www.npmjs.com/package/serialport
       var serialport = new SerialPort(comName, {
          baudRate: 9600,
@@ -37,19 +37,58 @@ module.exports = function(SerialPort, xbee_api, pro) {
       
       var count = 0;
       
+      console.log('\n------- Conecting to FireBase -------\n');
+      
+      firebase.initializeApp({
+         serviceAccount: "server/BloomBus-0096d2641a16.json",
+         databaseURL: "https://bloombus-68ea7.firebaseio.com",
+         databaseAuthVariableOverride: {
+            uid: "my-service-worker"
+         }
+      });
+      
+      // Creating Database Reference
+      var db = firebase.database();
+      var bus_dataRef = db.ref("/bus_data");
+      // ref.once("value", function(snapshot) {
+      //    console.log(snapshot.val());
+      // });
+      
+      // Day key logic
+      var date = new Date().toISOString();
+      date = date.split('T');
+      var dateKey = date[0];
+      var timeKey = date[1];
+      timeKey = timeKey.split('.');
+      console.log(dateKey + " " + timeKey[0]);
+      
+      var xbee_data_obj = {};
       // All frames parsed by the XBee will be emitted here
       xbeeAPI.on("frame_object", function(frame) {
          console.log(count++);
-         var buffer = String(frame.data);
-         console.log(buffer);
+         
+         // Turn xbee_data into readable output, not HEX
+         var xbee_data = String(frame.data);
+         
+         // Set up Data in JSON format
+         xbee_data_obj[timeKey] = xbee_data;
+         console.log(xbee_data);
+         
+         // Push Data to Firebase
+         bus_dataRef.child(dateKey).set(xbee_data_obj);
+         
+         // Clear xbee_data_obj
+         xbee_data_obj = {};
       });
    }
    
-   console.log('\n---------- HERE ------------\n');
+   
+   
+   
    
    /*port.on('data', function (data) {
       var buff = new Buffer(data, 'utf8');
       console.log('Data: ' + buff.toString('hex'));
    });*/
-   
+
 };

@@ -20,9 +20,6 @@ process.argv.forEach(function (val, index, array) {
    }
 });
 
-//https://www.npmjs.com/package/debug
-// var debug = require('debug');
-
 
 // Async
 // var async = require('async');
@@ -84,7 +81,7 @@ app.use(
 var firebase = require("firebase");
 var SerialPort = require("serialport");
 var xbee_api = require('xbee-api');
-require('./server/xbee-api.js')(SerialPort, xbee_api, pro);
+require('./server/xbee-api.js')(SerialPort, xbee_api, firebase, pro);
 
 
 /*************************************************************
