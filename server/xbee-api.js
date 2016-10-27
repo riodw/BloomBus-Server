@@ -37,7 +37,7 @@ module.exports = function(SerialPort, xbee_api, firebase, pro) {
       
       var count = 0;
       
-      console.log('\n------- Conecting to FireBase -------\n');
+      console.log('\n------- Connecting to FireBase -------\n');
       
       firebase.initializeApp({
          serviceAccount: "server/BloomBus-0096d2641a16.json",
@@ -53,6 +53,8 @@ module.exports = function(SerialPort, xbee_api, firebase, pro) {
       // ref.once("value", function(snapshot) {
       //    console.log(snapshot.val());
       // });
+      
+      console.log('\n------- Connected -------\n');
       
       // Day key logic
       var dateKey;
