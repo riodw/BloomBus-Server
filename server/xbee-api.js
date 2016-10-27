@@ -72,7 +72,6 @@ module.exports = function(SerialPort, xbee_api, firebase, pro) {
       
       
       var xbee_data = '';
-      var xbee_data_obj = {};
       var date_now = [];
       // All frames parsed by the XBee will be emitted here
       xbeeAPI.on("frame_object", function(frame) {
@@ -84,15 +83,10 @@ module.exports = function(SerialPort, xbee_api, firebase, pro) {
          // Get updated time
          date_now = getNewTime();
          
-         // Set up Data in JSON format
-         xbee_data_obj[date_now[1]] = xbee_data;
          console.log(xbee_data);
          
          // Push Data to Firebase
-         bus_dataRef.child(date_now[0]).push(xbee_data_obj);
-         
-         // Clear xbee_data_obj
-         xbee_data_obj = {};
+         bus_dataRef.child(date_now[0]).child(date_now[1]).set(xbee_data);
       });
    }
    
