@@ -42,7 +42,7 @@ function initMap() {
    var latlng = new google.maps.LatLng(position[0], position[1]);
    // Google Maps Options
    var myOptions = {
-      zoom: 15,
+      zoom: 17,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
    };

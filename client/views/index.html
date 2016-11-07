@@ -71,9 +71,38 @@ initMap
       <div class="content">
          <div class="content-padded">
             <div class="segmented-control">
-               <a class="control-item active" onclick="document.getElementById('info').style.display='block'; document.getElementById('credit').style.display='none'; document.getElementById('live').style.display='none';">Info</a>
-               <a class="control-item" onclick="document.getElementById('info').style.display='none'; document.getElementById('credit').style.display='block'; document.getElementById('live').style.display='none';">Credits</a>
-               <a class="control-item" onclick="document.getElementById('info').style.display='none'; document.getElementById('credit').style.display='none'; document.getElementById('live').style.display='block';">Live</a>
+               <script>
+                  function info() {
+                     document.getElementById('info').style.display='block';
+                     document.getElementById('credit').style.display='none';
+                     document.getElementById('live').style.display='none';
+                     
+                     document.getElementById('info').className += " active";
+                     document.getElementById('credit').classList.remove("active");
+                     document.getElementById('live').classList.remove("active");
+                  }
+                  function credits() {
+                     document.getElementById('info').style.display='none';
+                     document.getElementById('credit').style.display='block';
+                     document.getElementById('live').style.display='none';
+                     
+                     document.getElementById('credit').className += " active";
+                     document.getElementById('info').classList.remove("active");
+                     document.getElementById('live').classList.remove("active");
+                  }
+                  function live() {
+                     document.getElementById('info').style.display='none';
+                     document.getElementById('credit').style.display='none';
+                     document.getElementById('live').style.display='block';
+                     
+                     document.getElementById('live').className += " active";
+                     document.getElementById('credit').classList.remove("active");
+                     document.getElementById('info').classList.remove("active");
+                  }
+               </script>
+               <a class="control-item active" onclick="info()">Info</a>
+               <a class="control-item" onclick="credits()">Credits</a>
+               <a class="control-item" onclick="live()">Live</a>
             </div>
          </div>
          
@@ -104,6 +133,9 @@ initMap
                </li>
                <li class="table-view-cell">
                   <a class="navigate-right">React</a>
+               </li>
+               <li class="table-view-cell">
+                  <a class="navigate-right">Google Maps</a>
                </li>
                <li class="table-view-cell">
                   <a class="navigate-right">Ratchet</a>
@@ -137,7 +169,7 @@ initMap
          <h5 class="content-padded">Running Buses</h5>
          <ul class="table-view">
             <li class="table-view-cell media">
-               <a class="navigate-right" href="choose-theater.html" data-transition="slide-in">
+               <a class="navigate-right" href="" data-transition="slide-in">
                   <img class="media-object pull-left" src="https://placehold.it/64x64" alt="Placeholder image for Argo's poster">
                   <div class="media-body">
                      <h4>Bus 1</h4>
@@ -147,7 +179,7 @@ initMap
                </a>
             </li>
             <li class="table-view-cell media">
-               <a class="navigate-right" href="choose-theater.html" data-transition="slide-in">
+               <a class="navigate-right" href="" data-transition="slide-in">
                   <img class="media-object pull-left" src="https://placehold.it/64x64" alt="Placeholder image for Skyfall's poster">
                   <div class="media-body">
                      <h4>Bus 1</h4>
