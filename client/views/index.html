@@ -72,32 +72,36 @@ initMap
          <div class="content-padded">
             <div class="segmented-control">
                <script>
+                  var info    = document.getElementById('info');
+                  var credit  = document.getElementById('credit');
+                  var live    = document.getElementById('live');
+                  
                   function info() {
-                     document.getElementById('info').style.display='block';
-                     document.getElementById('credit').style.display='none';
-                     document.getElementById('live').style.display='none';
+                     info.style.display='block';
+                     credit.style.display='none';
+                     live.style.display='none';
                      
-                     document.getElementById('info').className += " active";
-                     document.getElementById('credit').classList.remove("active");
-                     document.getElementById('live').classList.remove("active");
+                     info.className += " active";
+                     credit.classList.remove("active");
+                     live.classList.remove("active");
                   }
                   function credits() {
-                     document.getElementById('info').style.display='none';
-                     document.getElementById('credit').style.display='block';
-                     document.getElementById('live').style.display='none';
+                     info.style.display='none';
+                     credit.style.display='block';
+                     live.style.display='none';
                      
-                     document.getElementById('credit').className += " active";
-                     document.getElementById('info').classList.remove("active");
-                     document.getElementById('live').classList.remove("active");
+                     credit.className += " active";
+                     info.classList.remove("active");
+                     live.classList.remove("active");
                   }
                   function live() {
-                     document.getElementById('info').style.display='none';
-                     document.getElementById('credit').style.display='none';
-                     document.getElementById('live').style.display='block';
+                     info.style.display='none';
+                     credit.style.display='none';
+                     live.style.display='block';
                      
-                     document.getElementById('live').className += " active";
-                     document.getElementById('credit').classList.remove("active");
-                     document.getElementById('info').classList.remove("active");
+                     live.className += " active";
+                     credit.classList.remove("active");
+                     info.classList.remove("active");
                   }
                </script>
                <a class="control-item active" onclick="info()">Info</a>
