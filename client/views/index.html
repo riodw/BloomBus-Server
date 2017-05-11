@@ -7,225 +7,234 @@ initMap
 <html lang="en">
 
 <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-   <meta name="apple-mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-   <title>Bus GPS | BloomU</title>
-   <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Bus GPS | BloomU</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
 
-   <!-- Fonts -->
-   <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Lobster|Press+Start+2P|Wire+One" rel="stylesheet">
-   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,900">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Lobster|Press+Start+2P|Wire+One" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-   <!-- Ratchet CSS -->
-   <link rel="stylesheet" href="ratchet/css/ratchet.min.css">
-   <link rel="stylesheet" href="ratchet/css/ratchet-theme-ios.min.css">
-   
-   <!-- Custom CSS -->
-   <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <!-- Ratchet CSS -->
+    <link rel="stylesheet" href="ratchet/css/ratchet.min.css">
+    <link rel="stylesheet" href="ratchet/css/ratchet-theme-ios.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
 </head>
+
 <body>
-   <script src="ratchet/js/ratchet.min.js"></script>
-   <!--<div id="app"></div>-->
 
-   <header class="bar bar-nav">
-      <a class="icon material-icons pull-left" href="#menuModal" style="color:black"><i class="material-icons">menu</i></a>
-      <h1 class="title">BLOOM<i class="material-icons">directions_bus</i></h1>
-   </header>
-   
-   
-   
-   <div class="content">
-      <div id="map"></div>
-      
-      <nav class="bar bar-tab">
-         <a class="tab-item active" href="#home"><i class="material-icons">directions_bus</i></a>
-         <a class="tab-item" href="#directoryModal">List</a>
-         <a class="tab-item" href="#infoModal"><i class="material-icons">info_outline</i></a>
-      </nav>
-   </div><!-- /.content -->
+    <!--<div id="app"></div>-->
 
-   <!-- Directory modal -->
-   <div id="directoryModal" class="popover popover_bottom">
-      <header class="bar bar-nav">
-         <h1 class="title">Directory</h1>
-      </header>
-      <ul class="table-view">
-         <li class="table-view-divider">Bus <span class="pull-right" style="margin-right: 15px;">ETA</span></li>
-         <li class="table-view-cell">Bus 1 <span class="badge">4m</span></li>
-         <li class="table-view-cell">Bus 2 <span class="badge">1m</span></li>
-         <li class="table-view-cell">Bus 3 <span class="badge">5m</span></li>
-      </ul>
-   </div>
+    <header class="bar bar-nav">
+        <a class="icon material-icons pull-left" href="#menuModal" style="color:black"><i class="material-icons">menu</i></a>
+        <h1 class="title">BLOOM<i class="material-icons">directions_bus</i></h1>
+    </header>
 
-   <!-- Info modal -->
-   <div id="infoModal" class="modal">
-      <header class="bar bar-nav">
-         <a class="icon icon-close pull-left" href="#infoModal"></a>
-         <h1 class="title">About Bloom Bus</h1>
-      </header>
-      <div class="content">
-         <div class="content-padded">
-            <div class="segmented-control">
-               <script>
-                  var info    = document.getElementById('info');
-                  var credit  = document.getElementById('credit');
-                  var live    = document.getElementById('live');
-                  
-                  function info() {
-                     info.style.display='block';
-                     credit.style.display='none';
-                     live.style.display='none';
-                     
-                     info.className += " active";
-                     credit.classList.remove("active");
-                     live.classList.remove("active");
-                  }
-                  function credits() {
-                     info.style.display='none';
-                     credit.style.display='block';
-                     live.style.display='none';
-                     
-                     credit.className += " active";
-                     info.classList.remove("active");
-                     live.classList.remove("active");
-                  }
-                  function live() {
-                     info.style.display='none';
-                     credit.style.display='none';
-                     live.style.display='block';
-                     
-                     live.className += " active";
-                     credit.classList.remove("active");
-                     info.classList.remove("active");
-                  }
-               </script>
-               <a class="control-item active" onclick="info()">Info</a>
-               <a class="control-item" onclick="credits()">Credits</a>
-               <a class="control-item" onclick="live()">Live</a>
+
+
+    <div class="content">
+        <div id="map"></div>
+
+        <nav class="bar bar-tab">
+            <a class="tab-item active" href="#home"><i class="material-icons">directions_bus</i></a>
+            <a class="tab-item" href="#directoryModal">List</a>
+            <a class="tab-item" href="#infoModal"><i class="material-icons">info_outline</i></a>
+        </nav>
+    </div>
+    <!-- /.content -->
+
+    <!-- Directory modal -->
+    <div id="directoryModal" class="popover popover_bottom">
+        <header class="bar bar-nav">
+            <h1 class="title">Directory</h1>
+        </header>
+        <ul class="table-view">
+            <li class="table-view-divider">Bus <span class="pull-right" style="margin-right: 15px;">ETA</span></li>
+            <li class="table-view-cell">Bus 1 <span class="badge">4m</span></li>
+            <li class="table-view-cell">Bus 2 <span class="badge">1m</span></li>
+            <li class="table-view-cell">Bus 3 <span class="badge">5m</span></li>
+        </ul>
+    </div>
+
+    <!-- Info modal -->
+    <div id="infoModal" class="modal">
+        <header class="bar bar-nav">
+            <a class="icon icon-close pull-left" href="#infoModal"></a>
+            <h1 class="title">About Bloom Bus</h1>
+        </header>
+        <div class="content">
+            <div class="content-padded">
+                <div class="segmented-control">
+                    <script>
+                        var info = document.getElementById('info');
+                        var credit = document.getElementById('credit');
+                        var live = document.getElementById('live');
+
+                        function info() {
+                            info.style.display = 'block';
+                            credit.style.display = 'none';
+                            live.style.display = 'none';
+
+                            info.className += " active";
+                            credit.classList.remove("active");
+                            live.classList.remove("active");
+                        }
+
+                        function credits() {
+                            info.style.display = 'none';
+                            credit.style.display = 'block';
+                            live.style.display = 'none';
+
+                            credit.className += " active";
+                            info.classList.remove("active");
+                            live.classList.remove("active");
+                        }
+
+                        function live() {
+                            info.style.display = 'none';
+                            credit.style.display = 'none';
+                            live.style.display = 'block';
+
+                            live.className += " active";
+                            credit.classList.remove("active");
+                            info.classList.remove("active");
+                        }
+                    </script>
+                    <a class="control-item active" onclick="info()">Info</a>
+                    <a class="control-item" onclick="credits()">Credits</a>
+                    <a class="control-item" onclick="live()">Live</a>
+                </div>
             </div>
-         </div>
-         
-         <div id="info" class="content-padded">
-            <h3>Bloomsburg Bus GPS App</h3>
-            <p>This App was created to track the GPS location of all the busses at the Bloomsburg University of Pennsylvania.</p>
-         </div>
-         
-         <div id="credit" class="control-content" style="display:none;">
-            <h5 class="content-padded">Authors</h5>
+
+            <div id="info" class="content-padded">
+                <h3>Bloomsburg Bus GPS App</h3>
+                <p>This App was created to track the GPS location of all the busses at the Bloomsburg University of Pennsylvania.</p>
+            </div>
+
+            <div id="credit" class="control-content" style="display:none;">
+                <h5 class="content-padded">Authors</h5>
+                <ul class="table-view">
+                    <li class="table-view-cell">Daniel Pany</li>
+                    <li class="table-view-cell">Rio Weber</li>
+                </ul>
+                <h5 class="content-padded">Technologies</h5>
+                <ul class="table-view">
+                    <li class="table-view-cell">
+                        <a class="navigate-right">Node</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">Express</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">Firebase</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">MongoDB</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">React</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">Google Maps</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">Ratchet</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">XBee</a>
+                    </li>
+                    <li class="table-view-cell">
+                        <a class="navigate-right">Arduino</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="live" class="control-content" style="display:none;">
+                <h5 class="content-padded">Live Feed</h5>
+                <ul id="list" style="font-size:10px;"></ul>
+            </div>
+            <div class="content-padded">
+                <button class="btn btn-block btn-outlined">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu modal -->
+    <div id="menuModal" class="modal">
+        <header class="bar bar-nav">
+            <a class="icon icon-down-nav pull-left" href="#menuModal"></a>
+            <h1 class="title">Select Bus</h1>
+        </header>
+        <div class="content">
+            <h5 class="content-padded">Running Buses</h5>
             <ul class="table-view">
-               <li class="table-view-cell">Daniel Pany</li>
-               <li class="table-view-cell">Rio Weber</li>
+                <li class="table-view-cell media">
+                    <a class="navigate-right" href="" data-transition="slide-in">
+                        <img class="media-object pull-left" src="https://placehold.it/64x64" alt="Placeholder image for Argo's poster">
+                        <div class="media-body">
+                            <h4>Bus 1</h4>
+                            <p><i class="material-icons">location_on</i> 5 Miles</p>
+                            <p>ETA: &nbsp;<span class="badge badge-primary">2 min</span></p>
+                        </div>
+                    </a>
+                </li>
+                <li class="table-view-cell media">
+                    <a class="navigate-right" href="" data-transition="slide-in">
+                        <img class="media-object pull-left" src="https://placehold.it/64x64" alt="Placeholder image for Skyfall's poster">
+                        <div class="media-body">
+                            <h4>Bus 1</h4>
+                            <p><i class="material-icons">location_on</i> 5 Miles</p>
+                            <p>ETA: &nbsp;<span class="badge badge-primary">2 min</span></p>
+                        </div>
+                    </a>
+                </li>
             </ul>
-            <h5 class="content-padded">Technologies</h5>
-            <ul class="table-view">
-               <li class="table-view-cell">
-                  <a class="navigate-right">Node</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">Express</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">Firebase</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">MongoDB</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">React</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">Google Maps</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">Ratchet</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">XBee</a>
-               </li>
-               <li class="table-view-cell">
-                  <a class="navigate-right">Arduino</a>
-               </li>
-            </ul>
-         </div>
-         
-         <div id="live" class="control-content" style="display:none;">
-            <h5 class="content-padded">Live Feed</h5>
-            <ul id="list" style="font-size:10px;"></ul>
-         </div>
-         <div class="content-padded">
-            <button class="btn btn-block btn-outlined">Cancel</button>
-         </div>
-      </div>
-   </div>
-   
-   <!-- Menu modal -->
-   <div id="menuModal" class="modal">
-      <header class="bar bar-nav">
-         <a class="icon icon-down-nav pull-left" href="#menuModal"></a>
-         <h1 class="title">Select Bus</h1>
-      </header>
-      <div class="content">
-         <h5 class="content-padded">Running Buses</h5>
-         <ul class="table-view">
-            <li class="table-view-cell media">
-               <a class="navigate-right" href="" data-transition="slide-in">
-                  <img class="media-object pull-left" src="https://placehold.it/64x64" alt="Placeholder image for Argo's poster">
-                  <div class="media-body">
-                     <h4>Bus 1</h4>
-                     <p><i class="material-icons">location_on</i> 5 Miles</p>
-                     <p>ETA: &nbsp;<span class="badge badge-primary">2 min</span></p>
-                  </div>
-               </a>
-            </li>
-            <li class="table-view-cell media">
-               <a class="navigate-right" href="" data-transition="slide-in">
-                  <img class="media-object pull-left" src="https://placehold.it/64x64" alt="Placeholder image for Skyfall's poster">
-                  <div class="media-body">
-                     <h4>Bus 1</h4>
-                     <p><i class="material-icons">location_on</i> 5 Miles</p>
-                     <p>ETA: &nbsp;<span class="badge badge-primary">2 min</span></p>
-                  </div>
-               </a>
-            </li>
-         </ul>
-         <nav class="bar bar-tab">
-            <a class="tab-item">
-               <span class="icon"><i class="material-icons">apps</i></span>
-               <span class="tab-label">All Apps</span>
-            </a>
-            <a class="tab-item">
-               <span class="icon icon-gear"></span>
-               <span class="tab-label">Settings</span>
-            </a>
-            <a class="tab-item">
-               <span class="icon icon-person"></span>
-               <span class="tab-label">Profile</span>
-            </a>
-         </nav>
-      </div>
-   </div>
-   <!-- /.modal -->
-   
-   
-   <!--<script src="js/client.min.js"></script>-->
-   
-   <!-- FIREBASE -->
-   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
-   
-   <!-- Maps Custom JS -->
-   <script type="text/javascript" src="js/google-maps.js"></script>
-   
-   <!-- Google Maps -->
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM0NGGmZwQDYdzzDWmjwrGGNN2kDDr1os&callback=initMap" async defer></script>
-   
-   
-   
-   
+            <nav class="bar bar-tab">
+                <a class="tab-item">
+                    <span class="icon"><i class="material-icons">apps</i></span>
+                    <span class="tab-label">All Apps</span>
+                </a>
+                <a class="tab-item">
+                    <span class="icon icon-gear"></span>
+                    <span class="tab-label">Settings</span>
+                </a>
+                <a class="tab-item">
+                    <span class="icon icon-person"></span>
+                    <span class="tab-label">Profile</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+    <!-- /.modal -->
+
+
+    <!--<script src="js/client.min.js"></script>-->
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+    <!-- Maps Custom JS -->
+    <script type="text/javascript" src="js/google-maps.js"></script>
+
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTPi3k2W-wxSQafv4r8p8cUgOb-gqH1Ms&callback=initMap" async defer></script>
+
+    <script src="ratchet/js/ratchet.min.js"></script>
+
+    <script src="js/fingerblast.min.js"></script> // Enable desktop interaction
+    <script type="text/javascript">
+        var fb = new FingerBlast('body');
+    </script>
+
 </body>
 
 </html>
