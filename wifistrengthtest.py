@@ -2,7 +2,6 @@
 import machine, utime
 import sys
 import urequests
-import geojson
 import json
 import network
 import micropython
@@ -53,8 +52,8 @@ def main():
                 }
                 data = {
                     dateTime: {
-                        locData: locData,
-                        wifiData: wlan.scan()
+                        "locData": locData,
+                        "wifiData": nic.scan()
                     }
                 }
                 urequests.patch(dataBaseURL, data=json.dumps(data), headers = {"content-type":"application/json"})
