@@ -1,23 +1,20 @@
 var express = require('express');
 var http = require('http');
+
 // Native NodeJS module for resolving paths
 var path = require('path');
+
 // Used to get IP Address
 var os = require('os');
 
 var port = process.env.PORT;
 var server_IP = process.env.IP;
 
-
-
-
-
-
 // IMPORTANT! - For Running on Production Server
 var pro = false;
 // Needs Command Line Argument of "real" <node server.js real>
 process.argv.forEach(function (val, index, array) {
-   if(val == 'real') {
+   if (val == 'real') {
       port = 8080;
       pro = true;
       
@@ -69,7 +66,7 @@ const fs = require('fs');
 
 
 /*************************************************************
- * MONGODB
+ * MONGODB                                                   *
  *************************************************************/
 var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);
@@ -78,12 +75,12 @@ mongoose.connect(configDB.url);
 
 
 /*************************************************************
- * Define app
+ * Define app                                                *
  *************************************************************/
 var app = express();
 
 /*************************************************************
- * Main
+ * Main                                                      *
  *************************************************************/
 // Set up
 
@@ -106,7 +103,7 @@ app.use(
 );
 
 /*************************************************************
- * BLOOMBUS APP - MODULE CODE
+ * BLOOMBUS APP - MODULE CODE                                *
  *************************************************************/
 var firebase = require("firebase");
 var SerialPort = require("serialport");
@@ -115,7 +112,7 @@ require('./server/xbee-api.js')(SerialPort, xbee_api, firebase, pro);
 
 
 /*************************************************************
- * Routes
+ * Routes                                                    *
  *************************************************************/
 require('./server/routes.js')(app, path);
 
@@ -129,7 +126,7 @@ app.get('/*', function(req, res) {
 
 
 /************************************************************
- * Start Server
+ * Start Server                                             *
  ************************************************************/
 http.createServer(app).listen(port, function() {
    console.log('SERVER RUNNING... PORT: ' + port);

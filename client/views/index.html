@@ -27,9 +27,10 @@ initMap
    
    <!-- Custom CSS -->
    <link rel="stylesheet" type="text/css" href="css/custom.css">
+   
 </head>
 <body>
-   <script src="ratchet/js/ratchet.min.js"></script>
+   
    <!--<div id="app"></div>-->
 
    <header class="bar bar-nav">
@@ -221,10 +222,14 @@ initMap
    <script type="text/javascript" src="js/google-maps.js"></script>
    
    <!-- Google Maps -->
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM0NGGmZwQDYdzzDWmjwrGGNN2kDDr1os&callback=initMap" async defer></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEjUTZ2gaGFov0ab4wI6wXQ2nxwC_DVxk&callback=initMap" async defer></script>
    
+   <script src="ratchet/js/ratchet.min.js"></script>
    
-   
+   <script src="js/fingerblast.min.js"></script> // Enable desktop interaction
+   <script type="text/javascript"> 
+      var fb = new FingerBlast('body');
+   </script>
    
 </body>
 

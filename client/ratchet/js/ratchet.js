@@ -615,7 +615,7 @@
   window.addEventListener('touchstart', function () { isScrolling = false; });
   window.addEventListener('touchmove', function () { isScrolling = true; });
   window.addEventListener('touchend', touchend);
-  window.addEventListener('click', function (e) { if (getTarget(e)) {e.preventDefault();} });
+  window.addEventListener('click', touchend);
   window.addEventListener('popstate', popstate);
   window.PUSH = PUSH;
 
@@ -646,6 +646,7 @@
   };
 
   window.addEventListener('touchend', function (e) {
+    console.log("test");
     var activeTab;
     var activeBodies;
     var targetBody;
@@ -684,8 +685,7 @@
     targetBody.classList.add(className);
   });
 
-  window.addEventListener('click', function (e) { if (getTarget(e.target)) {e.preventDefault();} });
-}());
+  window.addEventListener('click', 'touchend');
 
 /* ========================================================================
  * Ratchet: sliders.js v2.0.2
