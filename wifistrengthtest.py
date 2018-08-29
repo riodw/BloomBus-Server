@@ -52,8 +52,10 @@ def main():
                     "speed":raw[6]
                 }
                 data = {
-                    locData: locData,
-                    wifiData: wlan.scan()
+                    dateTime: {
+                        locData: locData,
+                        wifiData: wlan.scan()
+                    }
                 }
                 urequests.patch(dataBaseURL, data=json.dumps(data), headers = {"content-type":"application/json"})
                 #data={dateTime:raw}
