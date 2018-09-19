@@ -4,7 +4,7 @@ const http = require('http');
 // Native NodeJS module for resolving paths
 const path = require('path');
 
-const port = 8080;
+const port = 80;
 
 const bodyParser = require('body-parser');
 
@@ -44,7 +44,7 @@ app.get('/*', (req, res) => {
 /** **********************************************************
  * Start Server                                             *
  *********************************************************** */
-http.createServer(app).listen(port, () => {
+http.createServer(app).listen(process.env.PORT || port, () => {
   console.log(`SERVER RUNNING... PORT: ${port}`);
 });
 
