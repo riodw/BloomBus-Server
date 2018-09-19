@@ -2,43 +2,41 @@
 <html>
   <head>
     <title>JS Geolocation API Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#760019"/>
+
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCfWbVagQG3V60EEF2JtJDTHZIt6C8sDeQ",
+        authDomain: "bloombus-163620.firebaseapp.com",
+        databaseURL: "https://bloombus-163620.firebaseio.com",
+        projectId: "bloombus-163620",
+        storageBucket: "bloombus-163620.appspot.com",
+        messagingSenderId: "740651108770"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
+      }
+    </script>
+    <script src="script.js" defer/>
   </head>
-  <style>
-    p {
-      font-size: 2em;
-    }
-    .good {
-      color: green;
-    }
-    .bad {
-      color: red;
-    }
-  </style>
-  <p id="coords"></p>
-  <script>
-    const coordsRef = document.getElementById('coords');
-
-    function geo_success(position) {
-      coordsRef.innerHTML = `${position.coords.latitude}, ${position.coords.longitude}`;
-    }
-
-    function geo_error() {
-      alert("Sorry, no position available.");
-    }
-
-    var geo_options = {
-      enableHighAccuracy: true, 
-      maximumAge        : 30000,
-      timeout           : 27000
-    };    
-
-    if ("geolocation" in navigator) {
-      /* geolocation is available */
-      document.write('<p class="good">geolocation available</p>');
-      const wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
-    } else {
-      /* geolocation IS NOT available */
-      document.writeln('<p class="bad">geolocation available</p>');
-    }
-  </script>
+  <body>
+      <p id="coords"></p>
+      <label for="shuttle-type">Shuttle Type:</label>
+      <select id="shuttle-type" name="shuttle-type">
+        <option value="campus">Campus Loop</option>
+        <option value="walmart">Wal-Mart</option>
+        <option value="downtown">Downtown Loop</option>
+        <option value="honeysuckle">Honeysuckle</option>
+        <option value="latenight">Late Night Shuttle</option>
+      </select>
+  </body>
 </html>
