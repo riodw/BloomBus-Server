@@ -1,0 +1,12 @@
+select, input, textarea {
+  display: block;
+}
+.good {
+  color: green;
+}
+.bad {
+  color: red;
+}
+select {
+  font-size: 2em;
+}
