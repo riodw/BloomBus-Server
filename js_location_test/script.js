@@ -14,8 +14,10 @@ function geoSuccess(position) {
     },
     properties: {
       name: shuttleType.text,
-      timestamp: Date.now(),
-    }
+      timestamp: position.timestamp,
+      speed: position.coords.speed,
+      altitude: position.coords.altitude,
+    },
   };
   coordsRef.innerHTML = `${position.coords.latitude}, ${position.coords.longitude}`;
   return firebase.database().ref().update(updates);
@@ -34,7 +36,7 @@ const geoOptions = {
 if ('geolocation' in navigator) {
   /* geolocation is available */
   document.write('<p class="good">geolocation available</p>');
-  const wpid = navigator.geolocation.watchPosition(geoSuccess, geoError, geoOptions);
+  navigator.geolocation.watchPosition(geoSuccess, geoError, geoOptions);
 } else {
   /* geolocation IS NOT available */
   document.writeln('<p class="bad">geolocation available</p>');
