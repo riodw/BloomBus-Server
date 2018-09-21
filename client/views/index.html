@@ -27,7 +27,15 @@ initMap
    
    <!-- Custom CSS -->
    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+   <!-- FIREBASE -->
+   <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
    
+   <!-- Moment.js -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+   
+   <!-- Google Maps -->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfWbVagQG3V60EEF2JtJDTHZIt6C8sDeQ&callback=initMap" async defer></script>
 </head>
 <body>
    
@@ -212,25 +220,12 @@ initMap
    </div>
    <!-- /.modal -->
    
-   
    <!--<script src="js/client.min.js"></script>-->
-   
-   <!-- FIREBASE -->
-   <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
-   
+  
    <!-- Maps Custom JS -->
    <script type="text/javascript" src="js/google-maps.js"></script>
-   
-   <!-- Google Maps -->
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfWbVagQG3V60EEF2JtJDTHZIt6C8sDeQ&callback=initMap" async defer></script>
-   
-   <script src="ratchet/js/ratchet.min.js"></script>
-   
-   <script src="js/fingerblast.min.js"></script> // Enable desktop interaction
-   <script type="text/javascript"> 
-      var fb = new FingerBlast('body');
-   </script>
-   
+
+   <script src="ratchet/js/ratchet.min.js"></script>   
 </body>
 
 </html>

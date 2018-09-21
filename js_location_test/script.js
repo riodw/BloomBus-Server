@@ -28,16 +28,14 @@ function geoError() {
 }
 
 const geoOptions = {
-  enableHighAccuracy: true, 
+  enableHighAccuracy: true,
   maximumAge: 30000,
   timeout: 27000,
-};    
+};
 
 if ('geolocation' in navigator) {
-  /* geolocation is available */
-  document.write('<p class="good">geolocation available</p>');
+  document.write('<p class="good">Geolocation available</p>');
   navigator.geolocation.watchPosition(geoSuccess, geoError, geoOptions);
 } else {
-  /* geolocation IS NOT available */
-  document.writeln('<p class="bad">geolocation available</p>');
+  document.writeln('<p class="bad">Geolocation NOT available</p>');
 }
