@@ -8,7 +8,8 @@
     <link rel="manifest" href="manifest.json"/>
     <link rel="stylesheet" href="styles.css"/>
 
-    <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-database.js"></script>
     <script>
       // Initialize Firebase
       var config = {
@@ -73,7 +74,7 @@
   <body>
       <p id="coords"></p>
       <label for="shuttle-type">Shuttle Type:</label>
-      <select id="shuttle-type" name="shuttle-type">
+      <select id="shuttle-type" name="shuttle-type" onchange="geoSuccess()">
         <option value="campus">Campus Loop</option>
         <option value="walmart">Wal-Mart</option>
         <option value="downtown">Downtown Loop</option>
