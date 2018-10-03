@@ -1,85 +1,54 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>JS Geolocation API Test</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="theme-color" content="#760019"/>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>BloomBus Shuttle Location Tracker</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="theme-color" content="#760019"/>
 
-    <link rel="manifest" href="manifest.json"/>
-    <link rel="stylesheet" href="styles.css"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link href="style/style.css" type="text/css" rel="stylesheet">
+  
+  <!-- Google Maps -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfWbVagQG3V60EEF2JtJDTHZIt6C8sDeQ"></script>
+  
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-database.js"></script>
+  <script>
+    var config = {
+      apiKey: "AIzaSyCfWbVagQG3V60EEF2JtJDTHZIt6C8sDeQ",
+      authDomain: "bloombus-163620.firebaseapp.com",
+      databaseURL: "https://bloombus-163620.firebaseio.com",
+      projectId: "bloombus-163620",
+      storageBucket: "bloombus-163620.appspot.com",
+      messagingSenderId: "740651108770"
+    };
+    firebase.initializeApp(config);
+  </script>
 
-    <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-database.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyCfWbVagQG3V60EEF2JtJDTHZIt6C8sDeQ",
-        authDomain: "bloombus-163620.firebaseapp.com",
-        databaseURL: "https://bloombus-163620.firebaseio.com",
-        projectId: "bloombus-163620",
-        storageBucket: "bloombus-163620.appspot.com",
-        messagingSenderId: "740651108770"
-      };
-      firebase.initializeApp(config);
-    </script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js');
-      }
-    </script>
-    <script>
-      /* global document, navigator, firebase */
+  <!-- Check service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>BloomBus Shuttle Location Tracker</h1>
 
-      const coordsRef = document.getElementById('coords');
-      const shuttleTypeRef = document.getElementById('shuttle-type');
-
-      function geoSuccess(position) {
-        const updates = {};
-        const shuttleType = shuttleTypeRef.options[shuttleTypeRef.selectedIndex];
-        updates[`/shuttles/${shuttleType.value}`] = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [parseFloat(position.coords.latitude), parseFloat(position.coords.longitude)],
-          },
-          properties: {
-            name: shuttleType.text,
-            timestamp: position.timestamp,
-            speed: position.coords.speed,
-            altitude: position.coords.altitude,
-          },
-        };
-        coordsRef.innerHTML = `${position.coords.latitude}, ${position.coords.longitude}`;
-        return firebase.database().ref().update(updates);
-      }
-
-      function geoError() {
-        console.error('No position available.');
-      }
-
-      const geoOptions = {
-        enableHighAccuracy: true,
-        maximumAge: 30000,
-        timeout: 27000,
-      };
-
-      if ('geolocation' in navigator) {
-        document.write('<p class="good">Geolocation available</p>');
-        navigator.geolocation.watchPosition(geoSuccess, geoError, geoOptions);
-      } else {
-        document.writeln('<p class="bad">Geolocation NOT available</p>');
-      }
-    </script>
-  </head>
-  <body>
-      <p id="coords"></p>
-      <label for="shuttle-type">Shuttle Type:</label>
-      <select id="shuttle-type" name="shuttle-type" onchange="geoSuccess()">
-        <option value="campus">Campus Loop</option>
-        <option value="walmart">Wal-Mart</option>
-        <option value="downtown">Downtown Loop</option>
-        <option value="honeysuckle">Honeysuckle</option>
-        <option value="latenight">Late Night Shuttle</option>
-      </select>
-  </body>
+    <label for="shuttle-type">Shuttle Type:</label>
+    <select id="shuttle-type" name="shuttle-type" onchange="revealPosition()">
+      <option value="campus">Campus Loop</option>
+      <option value="walmart">Wal-Mart</option>
+      <option value="downtown">Downtown Loop</option>
+      <option value="honeysuckle">Honeysuckle</option>
+      <option value="latenight">Late Night Shuttle</option>
+    </select>
+    <button class="enable">Enable Geolocation</button>
+  </header>
+  <div id="map_canvas"></div>
+</body>
+<script src="scripts/geoMap.js"></script>
 </html>

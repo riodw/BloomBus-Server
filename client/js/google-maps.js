@@ -72,6 +72,9 @@ function initMap() { // Called via callback passed in link to Google Maps API
     styles: mapStyles,
   };
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  const swBound = new google.maps.LatLng('41.005188', '-76.452374');
+  const neBound = new google.maps.LatLng('41.019014', '-76.443321');
+  map.fitBounds(new google.maps.LatLngBounds(swBound, neBound));
 
   const shuttlesRef = firebase.database().ref('shuttles');
   shuttlesRef.on('value', (shuttlesSnapshot) => {

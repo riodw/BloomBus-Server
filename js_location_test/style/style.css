@@ -1,0 +1,78 @@
+/* || basic set up + sizing for containers */
+
+html, body {
+  margin: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  font-size: 10px;
+  font-family: 'FeuraSans', sans-serif;
+}
+
+body {
+  width: 100%;
+  height: inherit;
+  overflow: hidden;
+}
+
+#map_canvas {
+  width: 100%;
+  height: 95%; 
+}
+
+/* || positioning of other elements */
+
+header {
+  display: flex;
+  flex-direction: row;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAyCAYAAACd+7GKAAAAXElEQVQIW12Pyw2AAAhDX2PjsA7qGN6cwgQ8kMbPhVD6AbxvtGmwBO5OGVhgBCN52J8DPsSISVcFFpl1RSzifUmeHRMgXLUEYkwHVoFhzQUDwd3Ckj8fTYDwcV7cnG41nx6x1b4AAAAASUVORK5CYII=') repeat-x scroll 0px 0px / auto 100% transparent;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  font-size: 1.6rem;
+}
+
+label {
+  display: none;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 2.7rem;
+  margin: 0;
+  margin-right: auto;
+  color: white;
+}
+
+#shuttle-type {
+  font-size: 1.6rem;
+  height: 5rem;
+  min-width: 17rem;
+}
+
+button {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAmCAAAAAAg167bAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpBNDJGMDIzNzY4MjA2ODExOTVGRUY5NjAxMUNFRTVBRiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNUI0NUREQ0RBMjQxMUUxQjlEMUUyQkIxQkYxMjY5MiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNUI0NUREQkRBMjQxMUUxQjlEMUUyQkIxQkYxMjY5MiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjlDOEQ2OTU0MUEyMDY4MTFBRkUwRkNGMkU5MEUxNTdEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkE0MkYwMjM3NjgyMDY4MTE5NUZFRjk2MDExQ0VFNUFGIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+eBkG5QAAABlJREFUCNdj+MXEwPQfCf5DopExNhEEDYYAXlklF/9uJggAAAAASUVORK5CYII=') repeat-x scroll left bottom / auto 100% rgb(250, 250, 250); 
+  border: 0.1rem solid rgb(166, 166, 166);
+  border-radius: 0.3rem; 
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  height: 5rem;
+  color: rgb(51, 51, 51);
+  text-align: center;
+  text-shadow: 0.1rem 0.1rem 0px rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  outline: medium none;
+  margin-left: 0.4rem;
+}
+
+@media (max-width: 380px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  button {
+    font-size: 1.2rem;
+  }
+}
