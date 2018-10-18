@@ -16,7 +16,7 @@ const app = express();
 /*
  * Main
  */
-app.use(express.static(path.resolve(`${__dirname}/client`)));
+app.use(express.static(path.resolve(`${__dirname}/client/public`)));
 app.use(bodyParser.json());
 
 /*
