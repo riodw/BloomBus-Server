@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.ts",
   "dependencies": {
+    "@turf/turf": "^5.1.6",
+    "firebase": "^5.5.5",
     "firebase-admin": "^6.0.0",
     "firebase-functions": "^2.0.5"
   },
   "devDependencies": {
+    "@types/turf": "^3.5.32",
     "eslint": "^5.7.0"
   },
   "scripts": {

@@ -6,7 +6,7 @@ const TIMEOUT = 15 * 1000; // 15 seconds in milliseconds.
 export const reapOldShuttles = functions.database
   .ref("/shuttles")
   .onWrite(async change => {
-    const ref = change.after.ref; // reference to the parent ("/shuttles")
+    const ref = change.after.ref;
     const now = Date.now();
     const cutoff = now - TIMEOUT;
     const oldItemsQuery = ref.orderByChild("properties/timestamp").endAt(cutoff);
