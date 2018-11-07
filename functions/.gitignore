@@ -4,3 +4,7 @@
 
 # Typescript v1 declaration files
 typings/
+
+lib/serviceAccountKey.js
+lib/serviceAccountKey.js.map
+src/serviceAccountKey.ts

@@ -11,6 +11,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "@turf/turf": "^5.1.6",
     "firebase-admin": "~6.0.0",
     "firebase-functions": "^2.0.3"
   },

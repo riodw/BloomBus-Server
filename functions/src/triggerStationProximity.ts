@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as turf from '@turf/turf';
 
-export const reapOldShuttles = functions.database
+export const triggerStationProximity = functions.database
   .ref("/shuttles")
   .onWrite(async change => {
     const ref = change.after.ref;
@@ -15,19 +15,17 @@ export const reapOldShuttles = functions.database
     snapshot.forEach(shuttleSnap => {
       const shuttle = shuttleSnap.val();
       const shuttlePoint = turf.point(shuttle.geometry.coordinates);
-      Object.values(stationsSnapshotJSON).forEach((loopObj) => {
-        Object.values(loopObj).forEach((stationGeoJSON: any) => {
-          const stationPoint = turf.point(stationGeoJSON.geometry.coordinates);
-          if (turf.distance(shuttlePoint, stationPoint, 'kilometers') < 15) {
+      // Have to do some weird tactics for navigating through the JSON, since Firebase Cloud Functions
+      // uses Node 6 and doesn't have methods like Object.values or Object.entries
+      Object.keys(stationsSnapshotJSON).forEach((loopKey) => { // Iterate over each loop object, destructuring its 'features' array
+        const { features } = stationsSnapshotJSON[loopKey];
+        Object.keys(features).map(key => features[key]).forEach((stationGeoJSON: any) => {
+          const stationPoint = turf.point([stationGeoJSON.geometry.coordinates[0], stationGeoJSON.geometry.coordinates[1]]);
+          if (turf.distance(shuttlePoint, stationPoint, { units: 'kilometers' }) <= 0.015) {
             // shuttleSnap.key: the UUID
             // Setting the object entry to null will delete it in Firebase
-            updates[shuttleSnap.key] = {
-              properties: {
-                prevStation: stationGeoJSON.properties.name,
-                ...shuttle.properties
-              },
-              ...shuttle
-            };
+            shuttle.properties.prevStation = loopKey;
+            updates[shuttleSnap.key] = shuttle;
           }
         });
       });
@@ -37,4 +35,4 @@ export const reapOldShuttles = functions.database
     return ref.update(updates);
   });
 
-export default reapOldShuttles;
+export default triggerStationProximity;
