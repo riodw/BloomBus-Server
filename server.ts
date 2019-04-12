@@ -30,8 +30,11 @@ function start() {
   }
   const runs: Array<ShuttleRun> = [ campusRun ];
   simulateRuns(runs, shuttlesRef);
-  reapOldShuttles(shuttlesRef);
-  triggerStationProximity(shuttlesRef);
+
+  shuttlesRef.on('value', () => {
+    reapOldShuttles(shuttlesRef);
+    triggerStationProximity(shuttlesRef);
+  });  
 }
 
 start();
