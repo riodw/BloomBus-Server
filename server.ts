@@ -3,7 +3,8 @@ import * as admin from 'firebase-admin';
 import { default as serviceAccount } from './serviceAccountKey';
 
 // Import types
-import { ShuttleRun, ShuttleRunPoint } from './interfaces/ShuttleRun';
+import ShuttleRun  from './interfaces/ShuttleRun';
+import IConstants from './interfaces/IConstants';
 
 // Import functions
 import simulateRuns from './functions/simulateRuns';
@@ -13,7 +14,7 @@ import triggerStationProximity from './functions/triggerStationProximity';
 // Import raw data
 import * as campusRunPoints from './raw_data/campus_run1.gpx.json';
 
-function start() {
+async function start() {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as Object),
     databaseURL: 'https://bloombus-163620.firebaseio.com'
@@ -21,20 +22,23 @@ function start() {
 
   const db = admin.database();
   const shuttlesRef = db.ref('shuttles');
-  shuttlesRef.onDisconnect().remove();
+  const constantsRef = db.ref('constants');
 
-  const campusRun = {
-    name: 'Campus Loop',
-    key: 'campus',
-    points: campusRunPoints,
-  }
-  const runs: Array<ShuttleRun> = [ campusRun ];
-  simulateRuns(runs, shuttlesRef);
-
-  shuttlesRef.on('value', () => {
-    reapOldShuttles(shuttlesRef);
-    triggerStationProximity(shuttlesRef);
-  });  
+  await constantsRef.once('value', (dataSnapshot: admin.database.DataSnapshot) => {
+    const   { reapShuttleThresholdMilliseconds, stopProximityThresholdMeters } = dataSnapshot.val() as IConstants;
+    const campusRun = {
+      name: 'Campus Loop',
+      key: 'campus',
+      points: campusRunPoints,
+    }
+    const runs: Array<ShuttleRun> = [ campusRun ];
+    simulateRuns(runs, shuttlesRef);
+  
+    shuttlesRef.on('value', () => {
+      reapOldShuttles(shuttlesRef, reapShuttleThresholdMilliseconds);
+      // DEPRECATED triggerStationProximity(shuttlesRef);
+    });
+  });
 }
 
 start();

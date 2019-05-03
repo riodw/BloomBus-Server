@@ -1,3 +1,13 @@
+/*
+ * triggerStationProximity.ts
+ * 
+ * DEPRECATED, this logic has been incorporated into BloomBus-Tracker
+ * 
+ * Function executed on every update on 'shuttles' ref. Checks each to see if it is within a certain
+ * distance of a stop on its loop, and if so stores that stop's key in the properties of the shuttle.
+ *
+ */
+
 import * as admin from 'firebase-admin';
 import * as turf from '@turf/turf';
 
