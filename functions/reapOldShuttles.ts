@@ -1,11 +1,12 @@
 import * as admin from 'firebase-admin';
 
-// Timeout threshold. Shuttle nodes older than this will be deleted.
-const TIMEOUT = 15 * 1000; // 15 seconds in milliseconds.
-
-export default async function reapOldShuttles(dbRef: admin.database.Reference) {
+/*
+ * dbRef: Reference to the 'shuttles' reference, needed to perform update operation.
+ * reapShuttleThresholdMilliseconds: Timeout threshold. Shuttle nodes older than this will be deleted.
+ */
+export default async function reapOldShuttles(dbRef: admin.database.Reference, reapShuttleThresholdMilliseconds: number) {
   const now = Date.now();
-  const cutoff = now - TIMEOUT;
+  const cutoff = now - reapShuttleThresholdMilliseconds;
   const oldItemsQuery = dbRef.orderByChild("properties/timestamp").endAt(cutoff);
   const snapshot = await oldItemsQuery.once("value");
   // create a map with all children that need to be removed

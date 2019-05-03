@@ -17,4 +17,4 @@ interface ShuttleRun {
   points: Array<ShuttleRunPoint>;
 }
 
-export { ShuttleRunPoint, ShuttleRun };
+export default ShuttleRun;

@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as uuidv4 from 'uuid/v4';
-import { ShuttleRun, ShuttleRunPoint } from '../interfaces/ShuttleRun';
+import ShuttleRun from '../interfaces/ShuttleRun';
 
 export default function simulateRuns(runs: Array<ShuttleRun>, dbRef: admin.database.Reference) {
   const uuid = uuidv4();
