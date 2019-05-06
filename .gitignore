@@ -72,6 +72,5 @@ typings/
 # Serverless directories
 .serverless
 
-functions/lib/serviceAccountKey.js
-functions/lib/serviceAccountKey.js.map
-functions/src/serviceAccountKey.ts
+serviceAccountKey.js
+serviceAccountKey.ts
