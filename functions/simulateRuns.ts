@@ -18,6 +18,7 @@ export default function simulateRuns(runs: Array<ShuttleRun>, dbRef: admin.datab
           coordinates: [shuttlePoint["Longitude(WGS84)"], shuttlePoint["Latitude(WGS84)"]]
         },
         properties: {
+          appVersion: "bloombus-server",
           altitude: shuttlePoint["Altitude(feet)"],
           speed: shuttlePoint["Speed(mph)"],
           loopDisplayName: shuttleRun.name,
