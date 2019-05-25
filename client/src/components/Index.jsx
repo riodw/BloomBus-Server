@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const Index = () => (
-  <h1>Select a task from the navbar on the left.</h1>
+  <Fragment>
+    <h1 className="Task__heading">Select a task from the navbar on the left.</h1>
+  </Fragment>
 );
 
 export default Index;

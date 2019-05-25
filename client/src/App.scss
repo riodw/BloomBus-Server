@@ -1,7 +1,12 @@
 @import './globals';
 
+// Overrides
+i[class^="eva"] {
+  display: flex;
+}
+
 .App {
-  background-color: $bloombus-gray;
+  background-color: white;
   min-height: 100vh;
 
   display: grid;
@@ -18,7 +23,7 @@
 }
 
 .App-header {
-  background-color: #fefefe;
+  background-color: #dedede;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -91,4 +96,20 @@
 
 .App-link {
   color: $bloombus-blue;
+}
+
+.Task {
+  grid-area: main;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__heading {
+    margin-top: 0;
+  }
+
+  button {
+    margin-top: 0.5rem;
+  }
 }

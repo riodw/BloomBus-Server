@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const PostStatusAlert = () => (
-  <h1>Post Status Alert</h1>
+  <Fragment>
+    <h1 className="Task__heading">Post a Status Alert</h1>
+  </Fragment>
 );
 
 export default PostStatusAlert;

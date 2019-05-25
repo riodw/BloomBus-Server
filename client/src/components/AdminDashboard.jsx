@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-import { Route, NavLink, withRouter } from 'react-router-dom';
+import {
+  Route, Switch, NavLink, withRouter,
+} from 'react-router-dom';
 
 import logo from '../bloombus-text-logo.svg';
 
-import Index from './Index';
-import EditGeometry from './EditGeometry';
-import PostStatusAlert from './PostStatusAlert';
+import Task from './Task.jsx';
+import Index from './Index.jsx';
+import EditGeometry from './EditGeometry.jsx';
+import PostStatusAlert from './PostStatusAlert.jsx';
+
+const tasks = [
+  {
+    path: '/edit-geometry',
+    displayText: 'Edit Geometry',
+    component: EditGeometry,
+  },
+  {
+    path: '/post-status-alert',
+    displayText: 'Post Status Alert',
+    component: PostStatusAlert,
+  },
+];
 
 class AdminDashboard extends Component {
   render() {
@@ -20,13 +36,21 @@ class AdminDashboard extends Component {
           <span className="App-nav__heading">Tasks</span>
           <ul>
             {/* https://github.com/ReactTraining/react-router/issues/6201 */}
-            <li><NavLink to="/admin-dashboard/edit-geometry" isActive={isActive.bind(this, '/edit-geometry')}>Edit Geometry</NavLink></li>
-            <li><NavLink to="/admin-dashboard/post-status-alert" isActive={isActive.bind(this, '/post-status-alert')}>Post Status Alert</NavLink></li>
+            {tasks.map(task => (
+              <li key={task.path}>
+                <NavLink to={`/admin-dashboard${task.path}`} isActive={isActive.bind(this, task.path)}>
+                  {task.displayText}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
-        <Route exact path="/admin-dashboard" component={Index} />
-        <Route path="/admin-dashboard/edit-geometry" component={EditGeometry} />
-        <Route path="/admin-dashboard/post-status-alert" component={PostStatusAlert} />
+        <Task>
+          <Switch>
+            <Route exact path="/admin-dashboard" component={Index} />
+            {tasks.map(task => <Route key={task.path} path={`/admin-dashboard${task.path}`} component={task.component} />)}
+          </Switch>
+        </Task>
       </div>
     );
   }

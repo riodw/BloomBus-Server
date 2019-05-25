@@ -1,5 +1,6 @@
 // Import requirements
 import * as express from 'express';
+import * as fs from 'fs';
 import * as path from 'path';
 import * as admin from 'firebase-admin';
 import { default as serviceAccount } from './serviceAccountKey';
@@ -25,6 +26,8 @@ async function start() {
   const db = admin.database();
   const shuttlesRef = db.ref('shuttles');
   const constantsRef = db.ref('constants');
+  const loopsRef = db.ref('loops');
+  const stopsRef = db.ref('stops');
 
   await constantsRef.once('value', (dataSnapshot: admin.database.DataSnapshot) => {
     const   { reapShuttleThresholdMilliseconds, stopProximityThresholdMeters } = dataSnapshot.val() as IConstants;
@@ -45,8 +48,30 @@ async function start() {
   const app = express();
   app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-  app.get('/', function (req, res) {
+  app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
+  app.get('/api/downloadStopsGeoJSON', (req, res) => {
+    console.log('GET: /api/downloadStopsGeoJSON');
+    stopsRef.once('value', (stopsSnapshot) => {
+      const date = new Date();
+      const filename = `stops-${date.toISOString().substr(0, 10)}.geojson`;
+      const downloadPath = path.join(__dirname, 'downloads', filename);
+      fs.writeFileSync(downloadPath, JSON.stringify(stopsSnapshot.val()));
+      res.sendFile(downloadPath);
+    });
+  });
+
+  app.get('/api/downloadLoopsGeoJSON', (req, res) => {
+    console.log('GET: /api/downloadLoopsGeoJSON')
+    loopsRef.once('value', (stopsSnapshot) => {
+      const date = new Date();
+      const filename = `loops-${date.toISOString().substr(0, 10)}.geojson`;
+      const downloadPath = path.join(__dirname, 'downloads', filename);
+      fs.writeFileSync(downloadPath, JSON.stringify(stopsSnapshot.val()));
+      res.sendFile(downloadPath);
+    });
   });
 
   app.listen(process.env.PORT || 8080);
