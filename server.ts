@@ -1,4 +1,6 @@
 // Import requirements
+import * as express from 'express';
+import * as path from 'path';
 import * as admin from 'firebase-admin';
 import { default as serviceAccount } from './serviceAccountKey';
 
@@ -39,6 +41,15 @@ async function start() {
       // DEPRECATED triggerStationProximity(shuttlesRef);
     });
   });
+
+  const app = express();
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
+  app.listen(process.env.PORT || 8080);
 }
 
 start();
