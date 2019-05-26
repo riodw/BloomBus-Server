@@ -18,7 +18,6 @@ import triggerStationProximity from './functions/triggerStationProximity';
 
 // Import raw data
 import * as campusRunPoints from './raw_data/campus_run1.gpx.json';
-import { UploadedFile } from 'express-fileupload';
 
 async function start() {
   admin.initializeApp({
