@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as admin from 'firebase-admin';
 import * as multer from 'multer';
+import * as _ from 'lodash';
 const upload = multer({ storage: multer.memoryStorage() });
 import { default as serviceAccount } from './serviceAccountKey';
 
@@ -60,7 +61,18 @@ async function start() {
       const date = new Date();
       const filename = `stops-${date.toISOString().substr(0, 10)}.geojson`;
       const downloadPath = path.join(__dirname, 'downloads', filename);
-      fs.writeFileSync(downloadPath, JSON.stringify(stopsSnapshot.val()));
+      const stopsMutatedGeoJSON = stopsSnapshot.val();
+      const stopsProperGeoJSON = {
+        type: "FeatureCollection",
+        features: []
+      };
+      _.forEach(stopsMutatedGeoJSON, (value: any, key) => {
+        value.properties.stopKey = key;
+        stopsProperGeoJSON.features.push(value);
+      });
+      console.log(stopsProperGeoJSON);
+      fs.writeFileSync(downloadPath, JSON.stringify(stopsProperGeoJSON));
+      res.status(200);
       res.sendFile(downloadPath);
     });
   });
@@ -72,14 +84,19 @@ async function start() {
       const filename = `loops-${date.toISOString().substr(0, 10)}.geojson`;
       const downloadPath = path.join(__dirname, 'downloads', filename);
       fs.writeFileSync(downloadPath, JSON.stringify(stopsSnapshot.val()));
+      res.status(200);
       res.sendFile(downloadPath);
     });
   });
 
   app.post('/api/upload/stops/geojson', upload.single('stops-geojson'), (req, res, next) => {
     console.log('POST: /api/upload/stops/geojson');
-    const stopsGeoJSON = JSON.parse(req.file.buffer.toString());
-    stopsRef.set(stopsGeoJSON, (error) => {
+    const stopsProperGeoJSON = JSON.parse(req.file.buffer.toString());
+    let stopsMutatedGeoJSON = {};
+    stopsProperGeoJSON.features.forEach((feature) => {
+      stopsMutatedGeoJSON[feature.properties.stopKey] = feature;
+    });
+    stopsRef.set(stopsMutatedGeoJSON, (error) => {
       if (error) {
         console.log(`ERROR: ${error}`);
         res.sendStatus(500);
