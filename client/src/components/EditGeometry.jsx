@@ -23,45 +23,69 @@ class EditGeometry extends Component {
     this.onUploadLoopsClick = this.onUploadLoopsClick.bind(this);
     this.onUploadLoopsSubmit = this.onUploadLoopsSubmit.bind(this);
     this.onUploadLoopsCancel = this.onUploadLoopsCancel.bind(this);
+    this.stopsUploadInput = React.createRef();
+    this.loopsUploadInput = React.createRef();
   }
 
-  onDownloadStopsClick() {
+  onDownloadStopsClick(event) {
     this.setState({ fetching: true });
-    fetch('/api/downloadStopsGeoJSON').then(response => response.blob()).then((blob) => {
+    fetch('/api/download/stops/geojson').then(response => response.blob()).then((blob) => {
       this.setState({ fetching: false });
       saveAs(blob, `stops-${(new Date()).toISOString().substr(0, 10)}-.geojson`);
     });
   }
 
-  onDownloadLoopsClick() {
+  onDownloadLoopsClick(event) {
     this.setState({ fetching: true });
-    fetch('/api/downloadLoopsGeoJSON').then(response => response.blob()).then((blob) => {
+    fetch('/api/download/loops/geojson').then(response => response.blob()).then((blob) => {
       this.setState({ fetching: false });
       saveAs(blob, `loops-${(new Date()).toISOString().substr(0, 10)}-.geojson`);
     });
   }
 
-  onUploadStopsClick() {
+  onUploadStopsClick(event) {
     this.setState({ showStopsUpload: true });
   }
 
-  onUploadStopsSubmit() {
+  onUploadStopsSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData();
+
+    formData.append('stops-geojson', this.stopsUploadInput.current.files[0]);
+
+    const options = {
+      method: 'POST',
+      body: formData,
+    };
+
+    fetch('/api/upload/stops/geojson', options);
     this.setState({ showStopsUpload: false });
   }
 
-  onUploadStopsCancel() {
+  onUploadStopsCancel(event) {
     this.setState({ showStopsUpload: false });
   }
 
-  onUploadLoopsClick() {
+  onUploadLoopsClick(event) {
     this.setState({ showLoopsUpload: true });
   }
 
-  onUploadLoopsSubmit() {
+  onUploadLoopsSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData();
+
+    formData.append('loops-geojson', this.loopsUploadInput.current.files[0]);
+
+    const options = {
+      method: 'POST',
+      body: formData,
+    };
+
+    fetch('/api/upload/loops/geojson', options);
     this.setState({ showLoopsUpload: false });
   }
 
-  onUploadLoopsCancel() {
+  onUploadLoopsCancel(event) {
     this.setState({ showLoopsUpload: false });
   }
 
@@ -87,45 +111,48 @@ class EditGeometry extends Component {
         </Button>
         {
           this.state.showStopsUpload ? (
-            <span style={{ display: 'flex', flexDirection: 'row' }}>
-              <Input
-                inputProps={{
-                  accept: '.geojson',
-                  type: 'file',
-                }}
-                onChange={this.onUploadStopsClick}
-              />
-              <Tooltip title="Submit">
-                <IconButton
-                  key="check"
-                  aria-label="Submit"
-                  color="inherit"
-                  size="small"
-                  onClick={this.onUploadStopsSubmit}
-                >
-                  <Icon
-                    name="checkmark"
-                    size="xlarge"
-                    fill="#000"
-                  />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Cancel">
-                <IconButton
-                  key="close"
-                  aria-label="Cancel"
-                  color="inherit"
-                  size="small"
-                  onClick={this.onUploadStopsCancel}
-                >
-                  <Icon
-                    name="close"
-                    size="xlarge"
-                    fill="#000"
-                  />
-                </IconButton>
-              </Tooltip>
-            </span>
+            <form onSubmit={this.onUploadStopsSubmit}>
+              <span style={{ display: 'flex', flexDirection: 'row' }}>
+                <Input
+                  inputProps={{
+                    accept: '.geojson',
+                    type: 'file',
+                    name: 'stops-geojson',
+                  }}
+                  inputRef={this.stopsUploadInput}
+                />
+                <Tooltip title="Submit">
+                  <IconButton
+                    key="check"
+                    aria-label="Submit"
+                    color="inherit"
+                    size="small"
+                    type="submit"
+                  >
+                    <Icon
+                      name="checkmark"
+                      size="xlarge"
+                      fill="#000"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Cancel">
+                  <IconButton
+                    key="close"
+                    aria-label="Cancel"
+                    color="inherit"
+                    size="small"
+                    onClick={this.onUploadStopsCancel}
+                  >
+                    <Icon
+                      name="close"
+                      size="xlarge"
+                      fill="#000"
+                    />
+                  </IconButton>
+                </Tooltip>
+              </span>
+            </form>
           ) : (
             <Button variant="contained" onClick={this.onUploadStopsClick}>
               <Icon
@@ -139,45 +166,49 @@ class EditGeometry extends Component {
         }
         {
           this.state.showLoopsUpload ? (
-            <span style={{ display: 'flex', flexDirection: 'row' }}>
-              <Input
-                inputProps={{
-                  accept: '.geojson',
-                  type: 'file',
-                }}
-                onChange={this.onUploadLoopsClick}
-              />
-              <Tooltip title="Submit">
-                <IconButton
-                  key="check"
-                  aria-label="Submit"
-                  color="inherit"
-                  size="small"
-                  onClick={this.onUploadLoopsSubmit}
-                >
-                  <Icon
-                    name="checkmark"
-                    size="xlarge"
-                    fill="#000"
-                  />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Cancel">
-                <IconButton
-                  key="close"
-                  aria-label="Cancel"
-                  color="inherit"
-                  size="small"
-                  onClick={this.onUploadLoopsCancel}
-                >
-                  <Icon
-                    name="close"
-                    size="xlarge"
-                    fill="#000"
-                  />
-                </IconButton>
-              </Tooltip>
-            </span>
+            <form onSubmit={this.onUploadLoopsSubmit}>
+              <span style={{ display: 'flex', flexDirection: 'row' }}>
+                <Input
+                  inputProps={{
+                    accept: '.geojson',
+                    type: 'file',
+                    name: 'loops-geojson',
+                  }}
+                  inputRef={this.loopsUploadInput}
+                />
+                <Tooltip title="Submit">
+                  <IconButton
+                    key="check"
+                    aria-label="Submit"
+                    color="inherit"
+                    size="small"
+                    onClick={this.onUploadLoopsSubmit}
+                  >
+                    <Icon
+                      name="checkmark"
+                      size="xlarge"
+                      fill="#000"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Cancel">
+                  <IconButton
+                    key="close"
+                    aria-label="Cancel"
+                    color="inherit"
+                    size="small"
+                    type="submit"
+                  >
+                    <Icon
+                      name="close"
+                      size="xlarge"
+                      fill="#000"
+                    />
+                  </IconButton>
+                </Tooltip>
+              </span>
+            </form>
+
           ) : (
             <Button variant="contained" onClick={this.onUploadLoopsClick}>
               <Icon
