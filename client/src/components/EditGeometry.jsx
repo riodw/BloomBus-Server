@@ -31,7 +31,7 @@ class EditGeometry extends Component {
     this.setState({ fetching: true });
     fetch('/api/download/stops/geojson').then(response => response.blob()).then((blob) => {
       this.setState({ fetching: false });
-      saveAs(blob, `stops-${(new Date()).toISOString().substr(0, 10)}-.geojson`);
+      saveAs(blob, `stops-${(new Date()).toISOString().substr(0, 10)}.geojson`);
     });
   }
 
