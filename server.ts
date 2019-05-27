@@ -91,7 +91,7 @@ async function start() {
 
   app.post('/api/upload/stops/geojson', upload.single('stops-geojson'), (req, res, next) => {
     console.log('POST: /api/upload/stops/geojson');
-    const stopsProperGeoJSON = JSON.parse(req.file.buffer.toString());
+    const stopsProperGeoJSON = stripUnneccessaryGeoJSON(JSON.parse(req.file.buffer.toString()));
     let stopsMutatedGeoJSON = {};
     stopsProperGeoJSON.features.forEach((feature) => {
       stopsMutatedGeoJSON[feature.properties.stopKey] = feature;
@@ -109,7 +109,7 @@ async function start() {
 
   app.post('/api/upload/loops/geojson', upload.single('loops-geojson'), (req, res, next) => {
     console.log('POST: /api/upload/loops/geojson');
-    const loopsGeoJSON = JSON.parse(req.file.buffer.toString());
+    const loopsGeoJSON = stripUnneccessaryGeoJSON(JSON.parse(req.file.buffer.toString()));
     loopsRef.set(loopsGeoJSON, (error) => {
       if (error) {
         console.log(`ERROR: ${error}`);
@@ -122,6 +122,12 @@ async function start() {
   });
 
   app.listen(process.env.PORT || 8080);
+}
+
+const stripUnneccessaryGeoJSON = (geoJSON) => {
+  if (geoJSON.name) delete geoJSON.name;
+  if (geoJSON.crs) delete geoJSON.crs;
+  return geoJSON;
 }
 
 start();
